@@ -1,0 +1,17 @@
+INSERT INTO products (product_name, department_name, price_cents, stock_quantity)
+VALUES ("Mac Laptop", "Electronics", 250000, 100),
+("PC Laptop", "Electronics", 85000, 100),
+("TV", "Electronics", 60000, 50),
+("iPod", "Electronics", 30000, 50),
+("Hooded Sweatshirt", "Apparel", 3000, 100),
+("Zip-front Sweatshirt", "Apparel", 5000, 100),
+("Black v-neck", "Apparel", 1200, 100),
+("Jeans", "Apparel", 3500, 100),
+("Belt", "Apparel", 3500, 100),
+("Shoes", "Apparel", 9500, 100),
+("Boots", "Apparel", 22500, 100),
+("Refrigerator", "Appliances", 75000, 100),
+("Stove", "Appliances", 50000, 100),
+("Oven", "Appliances", 100000, 100),
+("Microwave", "Appliances", 15000, 100),
+("Toaster", "Appliances", 5000, 100);
