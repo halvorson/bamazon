@@ -28,8 +28,9 @@ function startTheShow() {
 			validate: function validateName(name){
 				if (name === "") {
 					console.log("Name cannot be blank!");
+					return false;
 				}
-				return name !== '';
+				return true;
 			}
 		}
 		]
@@ -166,6 +167,9 @@ function shopChooseQty(item) {
 			} else if (qty > item.stock_quantity) {
 				console.log("\nWe don't have that many!");
 				return false;
+			} else if (Math.floor(Number(qty)) !== Number(qty)) {
+				console.log("\nQuantity has to be an integer");
+				return false;
 			} else {
 				return true;
 			}
@@ -262,6 +266,9 @@ function returnChooseQty(item) {
 				return false;
 			} else if (qty > item.quantity_owned) {
 				console.log("\nYou don't own that many!");
+				return false;
+			} else if (Math.floor(Number(qty)) !== Number(qty)) {
+				console.log("\nQuantity has to be an integer");
 				return false;
 			} else {
 				return true;

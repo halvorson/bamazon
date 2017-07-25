@@ -47,7 +47,7 @@ function startTheShow() {
 			addToInventory();
 			break;
 			case "Add New Product":
-			returnChooseItem();
+			addNewProduct();
 			break;
 		}
 	});
@@ -165,7 +165,80 @@ function refillChooseQty(item) {
 }
 
 function addNewProduct() {
+	console.log("-------Add a new item-------");
+	var departments = [];
+	var query = connection.query(
+		"select department_name from products group by 1", function(err,res) {
+			res.forEach( function(i) {
+				departments.push(i.department_name);
+			});
+			inquirer.prompt([{
+				type: 'input',
+				name: 'product_name',
+				message: 'Product Name:',
+				validate: function validateItemName(name){
+					if(name === "") {
+						console.log("Product must have a name");
+						return false;
+					} else {
+						return true;
+					}
+				}
+			},
+			{
+				type: 'list',
+				name: 'dept',
+				message: 'Department:',
+				choices: departments
+			},
+			{
+				type: 'input',
+				name: 'price_cents',
+				message: 'Price (in cents):',
+				validate: function validatePrice(p){
+					if (Number(p) > 0 && Math.floor(Number(p)) === Number(p)) {
+						return true;
+					} else {
+						console.log("Price must be a positive integer.");
+						return false;
+					}
+				}
+			},
+			{
+				type: 'input',
+				name: 'inventory',
+				message: 'Initial inventory:',
+				validate: function validateQty(q){
+					if (Number(q) > 0 && Math.floor(Number(q)) === Number(q)) {
+						return true;
+					} else {
+						console.log("Quantity must be a positive integer.");
+						return false;
+					} 
+				}
+			},
+			]).then(function(ans3) {
+				var query = connection.query(
+					"INSERT INTO products SET ?", 
+					{
+						product_name: ans3.product_name,
+						department_name: ans3.dept,
+						price_cents: ans3.price_cents,
+						stock_quantity: ans3.inventory
+					},
+					function(err, res) {
+						console.log("Added " + ans3.product_name + " to the " + ans3.dept + " department.");
+						console.log("Initial quantity: " + ans3.inventory);
+						console.log("Price: " + centsToStr(ans3.price_cents));
+						restartPrompt();
+					}
+					);
+			});
+		});
+}
 
+function centsToStr(p) {
+	return "$"+p/100;
 }
 
 function restartPrompt() {
