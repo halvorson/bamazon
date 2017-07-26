@@ -2,17 +2,17 @@
 
 ## Overview
 
-This folder has many files in it: 2 sql files, this readme, and two bamazon JS scripts. The sql files exist to set up a new mysql schema (schema.sql), and to populate it with initial data (seed.sql). The mysql schema includes a product table, and a user_inventory table. The bamazon JS files include one view for a customer, and another for a manager, and require a bit more of an in-depth walkthrough, which follows. 
+This folder has many files in it: 2 sql files, this readme, two bamazon JS scripts, a ton of node related stuff, and screens for this readme. The sql files exist to set up a new mysql schema (schema.sql), and to populate it with initial data (seed.sql). The mysql schema includes a product table for our store, and a user_inventory table for each user. The bamazon JS files include one view for a customer, and another for a manager, and require a bit more of an in-depth walkthrough, which follows. 
 
 ## Bamazon customer
 
 Bamazon customer is a node.js file that utilizes inquirer and mysql to provide a shopping experience. 
 
-It first asks for a name, then provides an option to buy or return an item (fig 1). 
+It first asks for a name, then provides an option to buy or return an item (fig 1). *Note: the name is how it determines a user's existing inventory*
 
 ![Options](/screens/options.png)
 
-Buying lets you select a department and an item from lists, and then choose the quantity . If you try to purchase more than the quantity (or a non-integer, or a text string), it fails. 
+Buying lets you select a department and an item from lists, and then choose the quantity. If you try to purchase more than the quantity (or a non-integer, or a text string), it fails, with error message.
 
 ![Too Many Error](/screens/tooMany.png)
 
@@ -28,7 +28,7 @@ Returning an item allows you to select an item from your inventory to return, ag
 
 Bamazon manager allows managers of our store to perform one of 4 tasks: View Products for sale, View Products with low inventory, Add to inventory, or Add a new product. 
 
-Viewing products for sale returns all items that have more than 0 items in stock, and groups them by category.
+Viewing products for sale returns all items that have more than 0 items in stock, and groups them by department. *Note: `order by` exists so I know when to add a new department header*
 
 ![View products](/screens/viewProducts.png)
 
@@ -38,9 +38,6 @@ Adding inventory to an item lets you choose a department, then a product (eerily
 
 ![Add to inventory](/screens/addInventory.png)
 
-Lastly, Add new product lets you add a new product from scratch. It takes a name, department, price (in cents), and initial quantity, and writes that to the database. 
+Lastly, Add new product lets you add a new product from scratch. It takes a name, department, price (in cents), and initial quantity, and writes that to the database. *Future versions may allow new departments to be added, and also might check to make sure it's not adding an existing department + product combination.*
 
 ![Add product](/screens/addProduct.png)
-
-
-
