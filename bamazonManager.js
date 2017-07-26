@@ -55,7 +55,7 @@ function startTheShow() {
 
 function viewProducts() {
 	var query = connection.query(
-		"select * from products", function(err,res) {
+		"select * from products order by department_name", function(err,res) {
 			var lastDepartment = '';
 			console.log("Items currently offered:");
 			res.forEach(function (obj, i) {
